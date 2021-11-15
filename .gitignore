@@ -1,0 +1,6 @@
+/bin/
+/index/
+/indexDemo/
+.idea/
+*.iml
+target/
