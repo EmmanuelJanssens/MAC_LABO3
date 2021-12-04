@@ -32,11 +32,8 @@ import java.util.Date;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.LongPoint;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
+import org.apache.lucene.document.*;
+import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -171,7 +168,7 @@ public class IndexFiles {
       Document doc = new Document();
 
       // Add the path of the file as a field named "path".  Use a
-      // field that is indexed (i.e. searchable), but don't tokenize
+        // field that is indexed (i.e. searchable), but don't tokenize
       // the field into separate words and don't index term frequency
       // or positional information:
       Field pathField = new StringField("path", file.toString(), Field.Store.YES);
@@ -191,6 +188,7 @@ public class IndexFiles {
       // Note that FileReader expects the file to be in UTF-8 encoding.
       // If that's not the case searching for special characters will fail.
       doc.add(new TextField("contents", new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))));
+
 
       if (writer.getConfig().getOpenMode() == OpenMode.CREATE) {
         // New index, so we just add the document (no old document can be there):

@@ -3,6 +3,8 @@ package ch.heigvd.iict.mac.labo1.queries;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.misc.HighFreqTerms;
+import org.apache.lucene.misc.TermStats;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.Directory;
@@ -11,6 +13,7 @@ import org.apache.lucene.store.FSDirectory;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.Comparator;
 
 public class QueriesPerformer {
 	
@@ -37,7 +40,19 @@ public class QueriesPerformer {
 		// TODO student
 		// This methods print the top ranking term for a field.
 		// See "Reading Index".
-	    System.out.println("Top ranking terms for field ["  + field +"] are: ");
+
+		// 3.3
+		try {
+			TermStats[] termStatsTab = HighFreqTerms.getHighFreqTerms(
+					indexReader, numTerms, field, Comparator.comparing(termStats -> termStats.totalTermFreq));
+			System.out.println("Top ranking terms for field ["  + field +"] are: ");
+			for(TermStats ts : termStatsTab){
+				System.out.println(ts.termtext.utf8ToString() + ", freq : " + ts.totalTermFreq);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void query(String q) {

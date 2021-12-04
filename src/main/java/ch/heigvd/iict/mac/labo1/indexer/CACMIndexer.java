@@ -3,6 +3,8 @@ package ch.heigvd.iict.mac.labo1.indexer;
 import ch.heigvd.iict.mac.labo1.parsers.ParserListener;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.*;
+import org.apache.lucene.index.DocValuesType;
+import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
@@ -13,6 +15,7 @@ import org.apache.lucene.store.FSDirectory;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.List;
 
 public class CACMIndexer implements ParserListener {
 	
@@ -51,6 +54,33 @@ public class CACMIndexer implements ParserListener {
 		// TODO student: add to the document "doc" the fields given in
 		// parameters. You job is to use the right Field and FieldType
 		// for these parameters.
+
+		// 4) Disable query and retrievable in results (stored)
+		Field idStoredField = new StoredField("id", id);
+		doc.add(idStoredField);
+
+		// 2) 3) Enable query and retrievable in results
+		String[] authorsArray = authors.split(";");
+		for(String author : authorsArray){
+			Field authorsField = new StringField("author", author, Field.Store.YES);
+			doc.add(authorsField);
+		}
+
+		// 2) Enable query and retrievable in results
+		Field titleField = new TextField("title", title, Field.Store.YES);
+		doc.add(titleField);
+
+		// 2) Enable query and we choose to not let it be retrievable in results (lot of data)
+		if (summary != null) {
+			FieldType summaryFieldType = new FieldType();
+			// 5) Store the offsets in the index
+			summaryFieldType.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
+			summaryFieldType.setTokenized(true);
+			summaryFieldType.setStoreTermVectors(true);
+
+			Field summaryField = new Field("summary", summary, summaryFieldType);
+			doc.add(summaryField);
+		}
 
 		try {
 			this.indexWriter.addDocument(doc);
