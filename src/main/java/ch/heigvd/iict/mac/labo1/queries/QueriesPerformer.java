@@ -40,11 +40,9 @@ public class QueriesPerformer {
 	}
 
 	public void printTopRankingTerms(String field, int numTerms) {
-		// TODO student
-		// This methods print the top ranking term for a field.
-		// See "Reading Index".
 
-		// 3.3
+		// 3. Reading index
+
 		try {
 			TermStats[] termStatsTab = HighFreqTerms.getHighFreqTerms(
 					indexReader, numTerms, field, Comparator.comparing(termStats -> termStats.totalTermFreq));
@@ -59,8 +57,9 @@ public class QueriesPerformer {
 	}
 	
 	public void query(String q) {
-		// TODO student
-		// See "Searching" section
+
+		// 4. Searching
+
 		Query query = null;
 
 		try {

@@ -51,9 +51,7 @@ public class CACMIndexer implements ParserListener {
 	public void onNewDocument(Long id, String authors, String title, String summary) {
 		Document doc = new Document();
 
-		// TODO student: add to the document "doc" the fields given in
-		// parameters. You job is to use the right Field and FieldType
-		// for these parameters.
+		// 1. Indexing
 
 		// Disable query and retrievable in results (stored)
 		Field idStoredField = new StoredField("id", id);
@@ -73,7 +71,7 @@ public class CACMIndexer implements ParserListener {
 		// Enable query and we choose to not let it be retrievable in results (lot of data)
 		if (summary != null) {
 			FieldType summaryFieldType = new FieldType();
-			// 5) Store the offsets in the index
+			// Store the offsets in the index
 			summaryFieldType.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
 			summaryFieldType.setTokenized(true);
 			summaryFieldType.setStoreTermVectors(true);
