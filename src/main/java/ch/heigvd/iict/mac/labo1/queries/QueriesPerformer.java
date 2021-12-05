@@ -50,7 +50,7 @@ public class QueriesPerformer {
 					indexReader, numTerms, field, Comparator.comparing(termStats -> termStats.totalTermFreq));
 			System.out.println("Top ranking terms for field ["  + field +"] are: ");
 			for(TermStats ts : termStatsTab){
-				System.out.println(ts.termtext.utf8ToString() + ", freq : " + ts.totalTermFreq);
+				System.out.println(ts.termtext.utf8ToString() + ", frequency : " + ts.totalTermFreq);
 			}
 
 		} catch (Exception e) {
@@ -82,7 +82,7 @@ public class QueriesPerformer {
 				System.out.println(
 						docId + ": " +
 						d.getField("title").stringValue() +
-						"(" + hit.score + ")"
+						" (" + hit.score + ")"
 				);
 			}
 

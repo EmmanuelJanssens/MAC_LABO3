@@ -38,7 +38,7 @@ public class CACMIndexer implements ParserListener {
 		if(similarity != null)
 			iwc.setSimilarity(similarity);
 		// 1.3. create index writer
-		Path path = FileSystems.getDefault().getPath("indexEnglishAnalyzer");
+		Path path = FileSystems.getDefault().getPath("index");
 		try {
 			this.dir = FSDirectory.open(path);
 			this.indexWriter = new IndexWriter(dir, iwc);
@@ -55,22 +55,22 @@ public class CACMIndexer implements ParserListener {
 		// parameters. You job is to use the right Field and FieldType
 		// for these parameters.
 
-		// 4) Disable query and retrievable in results (stored)
+		// Disable query and retrievable in results (stored)
 		Field idStoredField = new StoredField("id", id);
 		doc.add(idStoredField);
 
-		// 2) 3) Enable query and retrievable in results
+		// Enable query and retrievable in results
 		String[] authorsArray = authors.split(";");
 		for(String author : authorsArray){
 			Field authorsField = new StringField("author", author, Field.Store.YES);
 			doc.add(authorsField);
 		}
 
-		// 2) Enable query and retrievable in results
+		// Enable query and retrievable in results
 		Field titleField = new TextField("title", title, Field.Store.YES);
 		doc.add(titleField);
 
-		// 2) Enable query and we choose to not let it be retrievable in results (lot of data)
+		// Enable query and we choose to not let it be retrievable in results (lot of data)
 		if (summary != null) {
 			FieldType summaryFieldType = new FieldType();
 			// 5) Store the offsets in the index
