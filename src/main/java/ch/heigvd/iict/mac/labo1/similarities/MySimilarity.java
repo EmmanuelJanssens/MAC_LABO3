@@ -5,12 +5,18 @@ import org.apache.lucene.util.MathUtil;
 
 public class MySimilarity extends ClassicSimilarity {
 
-    // TODO student
-    // Implement the functions described in section "Tuning the Lucene Score"
-
+    // 5. Tunning the lucene score
 
     @Override
+    public float tf(float freq){
+        return(float) (Math.log(freq)) + 1.0f;
+    }
+    @Override
+    public float idf(long docFreq, long numDocs){
+        return (float) (Math.log(numDocs/(docFreq+1.0f)))  + 1.0f;
+    }
+    @Override
     public float lengthNorm(int numTerms){
-        return 1.0f;
+        return 1;
     }
 }

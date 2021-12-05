@@ -60,30 +60,22 @@ public class Main {
 	}
 
 	private static void searching(QueriesPerformer queriesPerformer) {
-		// Example
-		//queriesPerformer.query("compiler program");
 
-		// Reminder: it must print the total number of results and
-		// the top 10 results.
+		// 4. Searching
 
-		// 3.4 Searching
+		//ueriesPerformer.query("\"Information Retrieval\"");
+		//queriesPerformer.query("Information && Retrieval");
+		//queriesPerformer.query("+Retrieval Information -Database");
 		//queriesPerformer.query("Info*");
-		//queriesPerformer.query("\"Information Retrieval\"~5");
 		queriesPerformer.query("\"Information Retrieval\"~5");
 	}
 
 	private static Analyzer getAnalyzer() {
-	    // TODO student... For the part "Indexing and Searching CACM collection
-		// - Indexing" use, as indicated in the instructions,
-		// the StandardAnalyzer class.
-		//
-		// For the next part "Using different Analyzers" modify this method
-		// and return the appropriate Analyzers asked.
 
-		// Part 3.1 Indexing
+		// 1. Indexing
 		//return new StandardAnalyzer();
 
-		// Part 3.2 Using different Analyzer
+		// 2. Using different Analyzer
 		//return new WhitespaceAnalyzer();
 		return new EnglishAnalyzer();
 		//Analyzer standardAnalyzer = new StandardAnalyzer();
@@ -98,9 +90,6 @@ public class Main {
 			System.out.println(ex.getMessage());
 		}
 		*/
-
-
-		//return new StandardAnalyzer();
 	}
 
 }
