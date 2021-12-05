@@ -98,7 +98,7 @@ public class Main {
 		*/
 
 
-		return new StandardAnalyzer();
+		return new EnglishAnalyzer();
 	}
 
 }
