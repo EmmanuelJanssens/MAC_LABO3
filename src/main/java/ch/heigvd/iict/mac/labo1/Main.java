@@ -83,7 +83,7 @@ public class Main {
 
 		// Part 3.2 Using different Analyzer
 		//return new WhitespaceAnalyzer();
-		//return new EnglishAnalyzer();
+		return new EnglishAnalyzer();
 		//Analyzer standardAnalyzer = new StandardAnalyzer();
 		//return new ShingleAnalyzerWrapper(standardAnalyzer); // shingle 1 and 2
 		//return new ShingleAnalyzerWrapper(standardAnalyzer, 3, 3); // shingle 1 and 3
@@ -98,7 +98,7 @@ public class Main {
 		*/
 
 
-		return new StandardAnalyzer();
+		//return new StandardAnalyzer();
 	}
 
 }
